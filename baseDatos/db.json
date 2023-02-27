@@ -1,0 +1,29 @@
+{
+    "persona": [
+      {
+        "id": 1,
+        "nombre": "Carlos Bustamante",
+        "direccion": "Av. libertador 222"
+      },
+      {
+        "id": 2,
+        "nombre": "Carlos Cabrera",
+        "direccion": "Av. libertador 222"
+      }
+      ,
+      {
+        "id": 3,
+        "nombre": "Maria Cabreras",
+        "direccion": "Av. libertador 222"
+      }
+    ],
+    "telefono": [
+      {
+        "id": 1,
+        "numero": 7584857,
+        "descripcion": "casa",
+        "personaId": 1
+      }
+    ]
+  }
+  
