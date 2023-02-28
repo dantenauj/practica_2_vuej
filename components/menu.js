@@ -56,9 +56,11 @@ Vue.component(
             
             }
         },
+
+        
         props: ["titulo"],
         mounted() {
-            this.numero =10
+       
         },
     }
 );
