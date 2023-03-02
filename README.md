@@ -4,5 +4,5 @@
 # integrantes
 
 
-Canqui Ticona Juan Alberto
-Landaeta Flores Paul Wilker
+- Canqui Ticona Juan Alberto
+- Landaeta Flores Paul Wilker
