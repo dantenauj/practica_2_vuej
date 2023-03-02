@@ -1,7 +1,5 @@
-Vue.component(
-    'card',
-    {
-        template:    `<div>  
+Vue.component("card", {
+  template: `<div>  
 
                         <div class="container">
                             <div class="row">
@@ -62,7 +60,7 @@ Vue.component(
                                     <h5 class="card-title">{{producto.nombre}}</h5>
                                     <img :src="producto.imagen" alt="" width="100%" />
                                     <p class="card-text">{{producto.descripcion}}</p>
-                                    <div class="producto-relacionado-precio">
+                                    <div class="producto-relacionado-precio"  @click="showProducto(producto)">
                                     Precio:{{producto.precio}} BOB
                                     </div>
                                     <div>
@@ -82,70 +80,67 @@ Vue.component(
                         </div>
 
 
-                    </div>`,    
-        data: function(){
-            return {
-                     configuracionPagina: {
-            precioEstilos:
-              'background: orangered; color: white; font-weight: bold',
-          },
-                  producto: { },
+                    </div>`,
+  data: function () {
+    return {
+      configuracionPagina: {
+        precioEstilos: "background: orangered; color: white; font-weight: bold",
+      },
+      producto: {},
 
-                    productosRelacionados: [ ],
-             pedido: {
-            id: 1,
-            cantidad: 1,
-            color: 'red',
-          },
-            }
-        },
+      productosRelacionados: [],
+      pedido: {
+        id: 1,
+        cantidad: 1,
+        color: "red",
+      },
+    };
+  },
 
-        methods: {
+  methods: {
+    getProducto() {
+      axios
+        .get("http://localhost:3000/producto")
+        .then((response) => {
+          console.log(response.data);
+          this.producto = response.data;
+        })
+        .catch((e) => console.log("catch", e));
+    },
 
-      getProducto() {
-            axios
-              .get('http://localhost:5000/producto')
-              .then((response) => {
-                console.log(response.data)
-                this.producto = response.data
-              })
-              .catch((e) => console.log('catch', e))
-          },
+    getProductoRelacionados() {
+      axios
+        .get("http://localhost:3000/productosRelacionados")
+        .then((response) => {
+          console.log(response.data);
+          this.productosRelacionados = response.data;
+        })
+        .catch((e) => console.log("catch", e));
+    },
 
-        getProductoRelacionados() {
-            axios
-              .get('http://localhost:5000/productosRelacionados')
-              .then((response) => {
-                console.log(response.data)
-                this.productosRelacionados = response.data
-              })
-              .catch((e) => console.log('catch', e))
-          },
+    comprar(pedido, producto) {
+      pedido.producto = producto.nombre;
+      console.log(pedido, producto);
+      alert(JSON.stringify(pedido));
+    },
+    showProducto(producto) {
+      alert(JSON.stringify(producto));
+    },
+    colorSelecionado(color) {
+      this.pedido.color = color;
+    },
+    masCantidad() {
+      this.pedido.cantidad++;
+    },
+    menosCantidad() {
+      if (this.pedido.cantidad > 1) {
+        this.pedido.cantidad--;
+      }
+    },
+  },
 
-          comprar(pedido, producto) {
-            pedido.producto = producto.nombre
-            console.log(pedido, producto)
-            alert(JSON.stringify(pedido))
-          },
-          colorSelecionado(color) {
-            this.pedido.color = color
-          },
-          masCantidad() {
-            this.pedido.cantidad++
-          },
-          menosCantidad() {
-            if (this.pedido.cantidad > 1) {
-              this.pedido.cantidad--
-            }
-          },
-        },
-
-        props: ["titulo"],
-        mounted() {
-
-            this.getProducto(),
-            this.getProductoRelacionados()
-           
-        },
-    }
-);
+  props: ["titulo"],
+  mounted() {
+    this.getProducto(), this.getProductoRelacionados();
+  },
+});
